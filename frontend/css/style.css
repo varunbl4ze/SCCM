@@ -1,0 +1,451 @@
+/* ==========================================================================
+   CIVIC COMPLAINT REGISTRY — GLOBAL STYLESHEET
+   Design language: a municipal filing ledger meets an eco-forest palette.
+   Every complaint is a "docket" — the seal, the mono numerals, and the
+   status rail all reinforce that idea. Keep new components consistent
+   with these tokens rather than introducing one-off colors.
+   ========================================================================== */
+
+/* ---- Design tokens ------------------------------------------------------ */
+:root {
+  /* Core palette */
+  --forest: #1f4d3d;       /* primary — deep, authoritative green   */
+  --forest-dark: #163a2e;  /* pressed / hover states                */
+  --leaf: #2f8558;         /* accent — CTAs, links, active states   */
+  --leaf-light: #e6f2ea;   /* tint — badges, highlighted surfaces   */
+  --moss: #6b8f71;         /* muted secondary green                 */
+  --paper: #f7f6f1;        /* page background                       */
+  --fog: #e7e9e2;          /* card/section surface                  */
+  --ink: #1c231f;          /* primary text                          */
+  --ink-soft: #55605a;     /* secondary text                        */
+  --line: #dcdfd7;         /* hairline borders                      */
+
+  /* Status signals — used consistently for docket status everywhere */
+  --status-pending: #c9822d;
+  --status-pending-bg: #fbf1e3;
+  --status-progress: #3e6fa8;
+  --status-progress-bg: #e9f1fa;
+  --status-resolved: #2f8558;
+  --status-resolved-bg: #e6f2ea;
+  --status-rejected: #b1452f;
+  --status-rejected-bg: #f9e9e5;
+
+  /* Type */
+  --font-display: 'Poppins', sans-serif;
+  --font-mono: 'JetBrains Mono', 'Courier New', monospace;
+
+  /* Shape & shadow */
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --shadow-soft: 0 4px 20px rgba(31, 77, 61, 0.08);
+  --shadow-lift: 0 12px 32px rgba(31, 77, 61, 0.14);
+
+  --nav-height: 76px;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+body {
+  font-family: var(--font-display);
+  background: var(--paper);
+  color: var(--ink);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: var(--forest-dark);
+  letter-spacing: -0.01em;
+}
+
+a { color: var(--leaf); text-decoration: none; }
+a:hover { color: var(--forest); }
+
+.mono { font-family: var(--font-mono); letter-spacing: 0.02em; }
+
+/* Visible keyboard focus everywhere (accessibility floor) */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+.btn:focus-visible {
+  outline: 3px solid var(--leaf);
+  outline-offset: 2px;
+}
+
+/* ---- Buttons -------------------------------------------------------------*/
+.btn-civic-primary {
+  background: var(--leaf);
+  border: none;
+  color: #fff;
+  font-weight: 600;
+  padding: 0.75rem 1.75rem;
+  border-radius: 999px;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+  box-shadow: var(--shadow-soft);
+}
+.btn-civic-primary:hover,
+.btn-civic-primary:focus {
+  background: var(--forest);
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lift);
+}
+.btn-civic-outline {
+  background: transparent;
+  border: 1.5px solid var(--forest);
+  color: var(--forest-dark);
+  font-weight: 600;
+  padding: 0.7rem 1.7rem;
+  border-radius: 999px;
+  transition: all 0.18s ease;
+}
+.btn-civic-outline:hover {
+  background: var(--forest);
+  color: #fff;
+  transform: translateY(-2px);
+}
+.btn-civic-ghost {
+  background: transparent;
+  border: none;
+  color: var(--ink-soft);
+  font-weight: 500;
+}
+.btn-civic-ghost:hover { color: var(--forest); }
+
+/* ---- Navbar --------------------------------------------------------------*/
+.civic-nav {
+  height: var(--nav-height);
+  background: rgba(247, 246, 241, 0.92);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+.civic-nav .nav-link {
+  color: var(--ink-soft);
+  font-weight: 500;
+  margin: 0 0.35rem;
+}
+.civic-nav .nav-link.active,
+.civic-nav .nav-link:hover { color: var(--forest); }
+
+/* Signature seal / monogram — used in nav + hero */
+.civic-seal {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--forest);
+  color: #fff;
+  position: relative;
+  flex-shrink: 0;
+}
+.civic-seal::before {
+  content: '';
+  position: absolute;
+  inset: 4px;
+  border: 1.5px dashed rgba(255,255,255,0.45);
+  border-radius: 50%;
+}
+.civic-seal i { font-size: 1.05rem; }
+
+.brand-lockup { display: flex; align-items: center; gap: 0.65rem; }
+.brand-lockup .brand-text {
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--forest-dark);
+  line-height: 1.1;
+}
+.brand-lockup .brand-sub {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--moss);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+/* ---- Hero ------------------------------------------------------------- */
+.hero {
+  padding: 5.5rem 0 6rem;
+  background:
+    radial-gradient(circle at 85% 15%, rgba(47,133,88,0.12), transparent 55%),
+    var(--paper);
+  overflow: hidden;
+}
+.hero-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--leaf);
+  background: var(--leaf-light);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.9rem;
+  border-radius: 999px;
+  margin-bottom: 1.5rem;
+}
+.hero h1 {
+  font-size: clamp(2.2rem, 4vw, 3.4rem);
+  font-weight: 700;
+  line-height: 1.12;
+  margin-bottom: 1.25rem;
+}
+.hero h1 .accent { color: var(--leaf); }
+.hero p.lead-copy {
+  color: var(--ink-soft);
+  font-size: 1.1rem;
+  max-width: 46ch;
+  margin-bottom: 2rem;
+}
+
+/* Hero "docket" mock card — the signature visual in the hero */
+.docket-card {
+  background: #fff;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lift);
+  padding: 1.75rem;
+  position: relative;
+  animation: floatIn 0.9s ease both;
+}
+@keyframes floatIn {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.docket-card .docket-id {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--moss);
+  letter-spacing: 0.05em;
+}
+.docket-card .docket-title {
+  font-weight: 600;
+  margin: 0.4rem 0 0.9rem;
+  color: var(--forest-dark);
+}
+.docket-progress {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 1.1rem;
+}
+.docket-progress .dot {
+  width: 10px; height: 10px; border-radius: 50%;
+  background: var(--line);
+}
+.docket-progress .dot.done { background: var(--leaf); }
+.docket-progress .bar {
+  flex: 1; height: 3px; background: var(--line); border-radius: 3px; overflow: hidden;
+}
+.docket-progress .bar span {
+  display: block; height: 100%; width: 62%; background: var(--leaf);
+}
+
+/* ---- Sections ------------------------------------------------------------*/
+.section { padding: 5rem 0; }
+.section-tight { padding: 3.5rem 0; }
+.section-label {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--moss);
+  margin-bottom: 0.6rem;
+  display: block;
+}
+.section-title { font-size: clamp(1.6rem, 3vw, 2.3rem); margin-bottom: 0.75rem; }
+.section-sub { color: var(--ink-soft); max-width: 60ch; }
+
+.bg-fog { background: var(--fog); }
+.bg-forest { background: var(--forest); color: #fff; }
+.bg-forest h2, .bg-forest h3 { color: #fff; }
+
+/* ---- Cards ---------------------------------------------------------------*/
+.civic-card {
+  background: #fff;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow-soft);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.civic-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lift);
+}
+
+.feature-card { padding: 2rem 1.75rem; height: 100%; }
+.feature-icon {
+  width: 52px; height: 52px;
+  border-radius: 14px;
+  background: var(--leaf-light);
+  color: var(--leaf);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.3rem;
+  margin-bottom: 1.25rem;
+}
+.feature-card h3 { font-size: 1.1rem; margin-bottom: 0.5rem; }
+.feature-card p { color: var(--ink-soft); font-size: 0.95rem; margin: 0; }
+
+/* ---- Stats ---------------------------------------------------------------*/
+.stat-block { text-align: center; padding: 1.5rem 1rem; }
+.stat-number {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: clamp(2rem, 4vw, 2.75rem);
+  color: var(--forest);
+  display: block;
+}
+.stat-label {
+  color: var(--ink-soft);
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+/* ---- Status badges (shared across dashboard/tracking/admin) --------------*/
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 0.32rem 0.75rem;
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  white-space: nowrap;
+}
+.status-badge::before {
+  content: '';
+  width: 7px; height: 7px; border-radius: 50%;
+  background: currentColor;
+}
+.status-pending { color: var(--status-pending); background: var(--status-pending-bg); }
+.status-in_progress { color: var(--status-progress); background: var(--status-progress-bg); }
+.status-resolved { color: var(--status-resolved); background: var(--status-resolved-bg); }
+.status-rejected { color: var(--status-rejected); background: var(--status-rejected-bg); }
+
+/* ---- Footer ----------------------------------------------------------- */
+.civic-footer {
+  background: var(--forest-dark);
+  color: rgba(255,255,255,0.75);
+  padding: 3.5rem 0 2rem;
+}
+.civic-footer h5 { color: #fff; font-size: 1rem; margin-bottom: 1rem; }
+.civic-footer a { color: rgba(255,255,255,0.7); }
+.civic-footer a:hover { color: #fff; }
+.civic-footer .footer-bottom {
+  border-top: 1px solid rgba(255,255,255,0.12);
+  margin-top: 2.5rem;
+  padding-top: 1.5rem;
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.5);
+}
+
+/* ---- Toast / alert system (used by utils.js) ------------------------------*/
+#toastStack {
+  position: fixed;
+  top: calc(var(--nav-height) + 16px);
+  right: 16px;
+  z-index: 2000;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  max-width: 340px;
+}
+.civic-toast {
+  background: #fff;
+  border-left: 4px solid var(--leaf);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-lift);
+  padding: 0.85rem 1.1rem;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  animation: toastIn 0.25s ease both;
+}
+.civic-toast.error { border-left-color: var(--status-rejected); }
+.civic-toast.success { border-left-color: var(--status-resolved); }
+.civic-toast i { margin-top: 0.15rem; }
+@keyframes toastIn {
+  from { opacity: 0; transform: translateX(16px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+/* ---- Loading spinner (shared) ------------------------------------------- */
+.civic-spinner {
+  width: 20px; height: 20px;
+  border: 2.5px solid rgba(255,255,255,0.4);
+  border-top-color: #fff;
+  border-radius: 50%;
+  display: inline-block;
+  animation: spin 0.7s linear infinite;
+}
+.civic-spinner.dark {
+  border: 2.5px solid var(--line);
+  border-top-color: var(--forest);
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.skeleton {
+  background: linear-gradient(90deg, var(--fog) 25%, #f2f3ee 37%, var(--fog) 63%);
+  background-size: 400% 100%;
+  animation: shimmer 1.4s ease infinite;
+  border-radius: var(--radius-sm);
+}
+@keyframes shimmer {
+  0% { background-position: 100% 50%; }
+  100% { background-position: 0 50%; }
+}
+
+/* ---- Empty states ---------------------------------------------------- */
+.empty-state {
+  text-align: center;
+  padding: 3.5rem 1.5rem;
+  color: var(--ink-soft);
+}
+.empty-state i {
+  font-size: 2.5rem;
+  color: var(--moss);
+  margin-bottom: 1rem;
+  display: block;
+}
+.empty-state h4 { color: var(--forest-dark); margin-bottom: 0.4rem; }
+
+/* ---- CTA band ------------------------------------------------------------*/
+.cta-band {
+  background: var(--forest);
+  border-radius: var(--radius-lg);
+  padding: 3.5rem 3rem;
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+.cta-band::after {
+  content: '';
+  position: absolute;
+  width: 320px; height: 320px;
+  background: radial-gradient(circle, rgba(255,255,255,0.08), transparent 70%);
+  top: -80px; right: -80px;
+  border-radius: 50%;
+}
