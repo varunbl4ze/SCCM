@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Dashboard — Civic Registry</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/dashboard.css">
+<link rel="stylesheet" href="css/forms.css">
+<link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+<div id="toastStack"></div>
+
+<nav class="navbar navbar-expand-lg civic-nav">
+  <div class="container-fluid px-3 px-lg-4">
+    <button class="btn btn-civic-ghost mobile-sidebar-toggle me-2 d-none" id="sidebarToggle" aria-label="Toggle menu">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+    <a class="navbar-brand brand-lockup" href="index.html">
+      <span class="civic-seal"><i class="fa-solid fa-leaf"></i></span>
+      <span><span class="brand-text d-block">Civic Registry</span><span class="brand-sub d-block">Admin Console</span></span>
+    </a>
+    <div class="ms-auto d-flex align-items-center gap-2" id="navUserSlot"></div>
+  </div>
+</nav>
+
+<div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
+<div class="app-shell">
+  <aside class="app-sidebar" id="appSidebar">
+    <span class="sidebar-section-label">Citizen view</span>
+    <a href="dashboard.html" class="sidebar-link"><i class="fa-solid fa-gauge"></i> Dashboard</a>
+    <a href="complaint.html" class="sidebar-link"><i class="fa-solid fa-circle-plus"></i> Raise Complaint</a>
+    <a href="tracking.html" class="sidebar-link"><i class="fa-solid fa-list-check"></i> Track Complaints</a>
+    <a href="profile.html" class="sidebar-link"><i class="fa-solid fa-user"></i> Profile</a>
+    <div class="sidebar-divider"></div>
+    <span class="sidebar-section-label">Admin</span>
+    <a href="admin.html" class="sidebar-link active" id="adminSidebarLink"><i class="fa-solid fa-shield-halved"></i> Admin Dashboard</a>
+  </aside>
+
+  <main class="app-main">
+    <div class="page-head">
+      <div>
+        <h1>Admin console</h1>
+        <p>Every docket filed across the registry, at a glance.</p>
+      </div>
+      <div class="page-actions">
+        <button class="btn btn-civic-outline btn-sm" id="refreshAdminBtn"><i class="fa-solid fa-arrows-rotate me-1"></i> Refresh</button>
+      </div>
+    </div>
+
+    <!-- Stat cards -->
+    <div class="row g-3 mb-4">
+      <div class="col-6 col-lg-3">
+        <div class="stat-card">
+          <div class="icon-wrap tone-total"><i class="fa-solid fa-folder-open"></i></div>
+          <div><span class="value" id="adminStatTotal">–</span><div class="label">Total complaints</div></div>
+        </div>
+      </div>
+      <div class="col-6 col-lg-3">
+        <div class="stat-card">
+          <div class="icon-wrap tone-pending"><i class="fa-solid fa-hourglass-half"></i></div>
+          <div><span class="value" id="adminStatPending">–</span><div class="label">Pending</div></div>
+        </div>
+      </div>
+      <div class="col-6 col-lg-3">
+        <div class="stat-card">
+          <div class="icon-wrap tone-progress"><i class="fa-solid fa-person-digging"></i></div>
+          <div><span class="value" id="adminStatProgress">–</span><div class="label">In progress</div></div>
+        </div>
+      </div>
+      <div class="col-6 col-lg-3">
+        <div class="stat-card">
+          <div class="icon-wrap tone-resolved"><i class="fa-solid fa-circle-check"></i></div>
+          <div><span class="value" id="adminStatResolved">–</span><div class="label">Resolved</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Charts + department overview -->
+    <div class="row g-4 mb-4">
+      <div class="col-lg-4">
+        <div class="chart-card h-100">
+          <h5>Status distribution</h5>
+          <div class="chart-canvas-wrap"><canvas id="statusChart"></canvas></div>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="chart-card h-100">
+          <h5>Complaints by category</h5>
+          <div class="chart-canvas-wrap"><canvas id="categoryChart"></canvas></div>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="chart-card h-100">
+          <h5>Department overview</h5>
+          <small class="text-muted d-block mb-2">
+            Derived from category — no dedicated department field exists on the backend yet.
+          </small>
+          <div id="departmentOverview"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Complaint management table -->
+    <div class="page-head">
+      <div><h1 class="h5 mb-0">Manage complaints</h1></div>
+    </div>
+    <div class="filter-bar">
+      <div class="search-wrap">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" class="form-control" id="adminSearchInput" placeholder="Search by title or docket number…">
+      </div>
+      <select class="form-select" id="adminStatusFilter" style="max-width:180px;">
+        <option value="">All statuses</option>
+        <option value="pending">Pending</option>
+        <option value="in_progress">In Progress</option>
+        <option value="resolved">Resolved</option>
+        <option value="rejected">Rejected</option>
+      </select>
+    </div>
+
+    <div class="table-responsive">
+      <table class="civic-table">
+        <thead>
+          <tr>
+            <th>Docket</th>
+            <th>Title</th>
+            <th>Category</th>
+            <th>Filed</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="adminTableBody">
+          <tr><td colspan="6"><div class="skeleton" style="height:40px;"></div></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+</div>
+
+<!-- Delete confirm modal -->
+<div class="modal fade" id="adminDeleteModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content" style="border-radius:var(--radius-md);border:none;">
+      <div class="modal-body p-4">
+        <h5 class="mb-2">Delete this complaint?</h5>
+        <p class="text-muted small mb-4">This permanently removes the docket from the registry.</p>
+        <div class="d-flex gap-2 justify-content-end">
+          <button type="button" class="btn btn-civic-ghost" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-danger rounded-pill" id="adminConfirmDeleteBtn">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+<script src="js/utils.js"></script>
+<script src="js/api.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/admin.js"></script>
+</body>
+</html>

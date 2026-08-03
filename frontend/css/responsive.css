@@ -1,0 +1,75 @@
+/* ==========================================================================
+   RESPONSIVE OVERRIDES — tuning beyond Bootstrap's grid defaults
+   Breakpoints: >=1200 desktop, 768-1199 tablet, <768 mobile
+   ========================================================================== */
+
+/* ---- Tablet -------------------------------------------------------------*/
+@media (max-width: 991.98px) {
+  .app-sidebar {
+    position: fixed;
+    left: -260px;
+    top: var(--nav-height);
+    height: calc(100vh - var(--nav-height));
+    z-index: 1050;
+    transition: left 0.25s ease;
+    box-shadow: var(--shadow-lift);
+  }
+  .app-sidebar.open { left: 0; }
+  .sidebar-backdrop {
+    display: none;
+    position: fixed;
+    inset: var(--nav-height) 0 0 0;
+    background: rgba(28,35,31,0.35);
+    z-index: 1040;
+  }
+  .sidebar-backdrop.show { display: block; }
+  .app-main { padding: 1.75rem 1.25rem; }
+  .mobile-sidebar-toggle { display: inline-flex !important; }
+
+  .auth-side { display: none; }
+}
+
+@media (min-width: 992px) {
+  .mobile-sidebar-toggle { display: none !important; }
+}
+
+/* ---- Mobile ---------------------------------------------------------- */
+@media (max-width: 767.98px) {
+  .hero { padding: 3.5rem 0 3rem; text-align: center; }
+  .hero .lead-copy { margin-left: auto; margin-right: auto; }
+  .hero .hero-cta-group { justify-content: center; }
+  .hero-visual { margin-top: 2.5rem; }
+
+  .section { padding: 3rem 0; }
+  .section-tight { padding: 2.25rem 0; }
+
+  .welcome-banner { flex-direction: column; align-items: flex-start; text-align: left; }
+  .page-head { flex-direction: column; }
+  .page-head .page-actions { width: 100%; }
+  .page-head .page-actions .btn-civic-primary { width: 100%; }
+
+  .cta-band { padding: 2.5rem 1.5rem; text-align: center; }
+
+  .filter-bar { flex-direction: column; align-items: stretch; }
+  .filter-bar .search-wrap { min-width: 0; }
+
+  .civic-table { display: block; overflow-x: auto; white-space: nowrap; }
+
+  .docket-row { flex-wrap: wrap; }
+
+  .auth-form-side { padding: 2.25rem 1.5rem; }
+
+  #toastStack { left: 12px; right: 12px; max-width: none; }
+}
+
+/* ---- Small mobile ------------------------------------------------------- */
+@media (max-width: 420px) {
+  .stat-card { padding: 1.1rem; }
+  .docket-card { padding: 1.25rem; }
+}
+
+/* ---- Print (complaint details can be saved as reference) ---------------- */
+@media print {
+  .civic-nav, .app-sidebar, .mobile-sidebar-toggle, .page-actions, #toastStack { display: none !important; }
+  .app-main { padding: 0; }
+}
