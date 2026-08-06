@@ -26,7 +26,7 @@ def create_app():
     #   ALLOWED_ORIGINS=https://sccm-sable.vercel.app,http://localhost:5500
     allowed_origins = os.environ.get("ALLOWED_ORIGINS", "*")
     origins = "*" if allowed_origins == "*" else [o.strip() for o in allowed_origins.split(",")]
-    CORS(app, origins=origins, supports_credentials=True)
+    CORS(app, origins="https://sccm-sable.vercel.app", supports_credentials=True)
 
     # Initialize the database with this app
     db.init_app(app)
