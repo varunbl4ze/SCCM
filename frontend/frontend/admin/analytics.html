@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Analytics & Reports — Admin Console</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/dashboard.css">
+<link rel="stylesheet" href="../css/admin.css">
+<link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body>
+
+<div id="toastStack"></div>
+
+<nav class="navbar navbar-expand-lg civic-nav">
+  <div class="container-fluid px-3 px-lg-4">
+    <button class="btn btn-civic-ghost mobile-sidebar-toggle me-2 d-none" id="sidebarToggle" aria-label="Toggle menu">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+    <a class="navbar-brand brand-lockup" href="../index.html">
+      <span class="civic-seal"><i class="fa-solid fa-leaf"></i></span>
+      <span>
+        <span class="brand-text d-block">Civic Registry</span>
+        <span class="brand-sub d-block">Admin Console</span>
+      </span>
+    </a>
+    <div class="ms-auto d-flex align-items-center gap-2" id="navUserSlot"></div>
+  </div>
+</nav>
+
+<div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
+<div class="app-shell">
+  <aside class="app-sidebar admin-sidebar" id="appSidebar">
+    <span class="admin-console-badge"><i class="fa-solid fa-shield-halved"></i> Admin Console</span>
+    <span class="sidebar-section-label">Overview</span>
+    <a href="dashboard.html" class="sidebar-link"><i class="fa-solid fa-gauge"></i> Dashboard</a>
+    <span class="sidebar-section-label">Operations</span>
+    <a href="complaints.html" class="sidebar-link"><i class="fa-solid fa-clipboard-list"></i> Complaints</a>
+    <a href="users.html" class="sidebar-link"><i class="fa-solid fa-users"></i> Users</a>
+    <a href="departments.html" class="sidebar-link"><i class="fa-solid fa-building"></i> Departments</a>
+    <a href="analytics.html" class="sidebar-link active"><i class="fa-solid fa-chart-line"></i> Analytics</a>
+    <span class="sidebar-section-label">Account</span>
+    <a href="profile.html" class="sidebar-link"><i class="fa-solid fa-user-gear"></i> Profile & Settings</a>
+  </aside>
+
+  <main class="app-main">
+    <div class="page-head">
+      <h1>Analytics & reports</h1>
+      <p>How complaints are trending, and where the load is concentrated.</p>
+    </div>
+
+    <div class="row g-3 mb-4">
+      <div class="col-6 col-md-3">
+        <div class="metric-tile">
+          <div class="metric-value" id="metricTotal">–</div>
+          <div class="metric-label">Total complaints</div>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="metric-tile">
+          <div class="metric-value" id="metricResolved">–</div>
+          <div class="metric-label">Resolved</div>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="metric-tile">
+          <div class="metric-value" id="metricAvgHours">–</div>
+          <div class="metric-label">Avg. resolution (hrs)</div>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="metric-tile">
+          <div class="metric-value" id="metricLast7Days">–</div>
+          <div class="metric-label">Filed in last 7 days</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-3 mb-4">
+      <div class="col-lg-6">
+        <div class="chart-card h-100">
+          <h6 class="mb-3">Status breakdown</h6>
+          <canvas id="statusChart"></canvas>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="chart-card h-100">
+          <h6 class="mb-3">Filed per day — last 7 days</h6>
+          <canvas id="trendChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-3">
+      <div class="col-lg-6">
+        <div class="civic-card p-4 h-100">
+          <h6 class="mb-3">By category</h6>
+          <div id="categoryBars"><p class="text-muted small mb-0">Loading…</p></div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="civic-card p-4 h-100">
+          <h6 class="mb-3">By department</h6>
+          <div id="departmentBars"><p class="text-muted small mb-0">Loading…</p></div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+<script src="../js/utils.js"></script>
+<script src="../js/api.js"></script>
+<script src="../js/auth.js"></script>
+<script src="../js/admin-analytics.js"></script>
+</body>
+</html>

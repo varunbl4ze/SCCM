@@ -1,0 +1,164 @@
+/* ==========================================================================
+   admin.css — styling specific to the /admin/ section.
+   Deliberately reuses the tokens and shell/table/stat-card classes from
+   style.css + dashboard.css (same --forest/--leaf/--status-* variables,
+   same .app-shell/.civic-table/.stat-card structure) so the admin console
+   feels like the same product, not a bolted-on skin. What's here is only
+   what's genuinely different about the admin surface.
+   ========================================================================== */
+
+/* Sidebar gets a small "console" identity so it reads as a distinct,
+   separated area rather than a themed citizen page. */
+.admin-sidebar {
+  border-top: 3px solid var(--forest);
+}
+
+.admin-console-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--forest);
+  background: var(--leaf-light);
+  padding: 3px 10px;
+  border-radius: 999px;
+  margin-bottom: 1rem;
+}
+
+/* Role pill variants (users table + profile) */
+.role-pill.role-admin { background: var(--forest); color: #fff; }
+.role-pill.role-staff { background: var(--status-progress-bg); color: var(--status-progress); }
+.role-pill.role-citizen { background: var(--fog); color: var(--ink-soft); }
+
+/* Department chip — used in the complaints table and department cards */
+.dept-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--forest-dark);
+  background: var(--leaf-light);
+  padding: 3px 10px;
+  border-radius: 999px;
+}
+.dept-chip.unassigned {
+  background: var(--fog);
+  color: var(--ink-soft);
+  font-style: italic;
+  font-weight: 500;
+}
+
+/* Compact inline assignment controls inside the complaints table */
+.assign-select {
+  font-size: 0.82rem;
+  padding: 0.3rem 0.6rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--line);
+  background: #fff;
+  min-width: 150px;
+}
+
+/* Department management cards */
+.department-card {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  padding: 1.25rem 1.4rem;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+.department-card:hover {
+  box-shadow: var(--shadow-soft);
+  transform: translateY(-2px);
+}
+.department-card .count {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  color: var(--forest-dark);
+  font-size: 1.35rem;
+}
+
+/* Analytics: simple bar rows built from divs, no chart library required
+   for the category/department breakdowns; Chart.js (CDN) drives the two
+   canvas charts declared in analytics.html. */
+.bar-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.65rem;
+}
+.bar-row .bar-label {
+  width: 130px;
+  flex-shrink: 0;
+  font-size: 0.82rem;
+  color: var(--ink-soft);
+  text-transform: capitalize;
+}
+.bar-row .bar-track {
+  flex: 1;
+  height: 10px;
+  background: var(--fog);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.bar-row .bar-fill {
+  height: 100%;
+  background: var(--leaf);
+  border-radius: 999px;
+  transition: width 0.5s ease;
+}
+.bar-row .bar-value {
+  width: 34px;
+  text-align: right;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  color: var(--forest-dark);
+  font-weight: 600;
+}
+
+.chart-card {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  padding: 1.5rem;
+}
+.chart-card canvas { max-height: 260px; }
+
+/* Analytics summary stat (avg resolution time etc.) */
+.metric-tile {
+  text-align: center;
+  padding: 1.25rem;
+  border-radius: var(--radius-md);
+  background: var(--paper);
+  border: 1px solid var(--line);
+}
+.metric-tile .metric-value {
+  font-family: var(--font-mono);
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--forest-dark);
+}
+.metric-tile .metric-label {
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+  margin-top: 0.2rem;
+}
+
+/* Danger-zone actions in tables (delete user, delete department) */
+.action-icon-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--line);
+  background: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ink-soft);
+  transition: all 0.15s ease;
+}
+.action-icon-btn:hover { border-color: var(--leaf); color: var(--forest-dark); }
+.action-icon-btn.danger:hover { border-color: var(--status-rejected); color: var(--status-rejected); background: var(--status-rejected-bg); }

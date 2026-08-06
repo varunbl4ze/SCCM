@@ -1,10 +1,60 @@
+/* ==========================================================================
+   api.js — single source of truth for talking to the Flask backend.
+   Every network call in the app goes through `apiRequest()` below so that
+   auth headers, error parsing, and the base URL only live in one place.
 
-const API_BASE_URL = "https://sccm.onrender.com";
+   Backend endpoints this file talks to (see the Flask project):
+     POST   /api/auth/register
+     POST   /api/auth/login
+     GET    /api/auth/me
+     POST   /api/complaints/
+     GET    /api/complaints/            (?status=&user_id=&category=)
+     GET    /api/complaints/<id>
+     PUT    /api/complaints/<id>
+     PATCH  /api/complaints/<id>/status
+     DELETE /api/complaints/<id>
+   ========================================================================== */
 
+/**
+ * Change this if your Flask app runs somewhere other than the default
+ * `flask run` / `python app.py` address. Everything else in the frontend
+ * is wired through this constant — nothing else hardcodes a host.
+ */
+/**
+ * Single source of truth for where the backend lives. Auto-detects local
+ * development vs a deployed environment based on the page's own hostname,
+ * so the exact same code works when you open index.html locally AND once
+ * it's deployed to Vercel — no manual toggling required, and no risk of
+ * accidentally shipping a localhost URL to production (the bug that
+ * causes every single request to fail with "Failed to fetch" once
+ * deployed, since a visitor's browser has no server on ITS OWN
+ * 127.0.0.1:5000).
+ *
+ * IMPORTANT: replace the production URL below with your actual Render
+ * backend URL if it differs.
+ */
+const API_BASE_URL = (() => {
+  const isLocal = ['localhost', '127.0.0.1'].includes(window.location.hostname);
+  return isLocal
+    ? 'http://127.0.0.1:5000/api'
+    : 'https://sccm.onrender.com/api'; // <-- set this to your real Render URL
+})();
 
+/**
+ * The backend serves uploaded images from its own root (e.g. /uploads/x.png),
+ * not under /api. Since the frontend is typically served from a different
+ * origin/port than Flask, image URLs returned by the API (like
+ * complaint.image_url) need to be resolved against the Flask host, not the
+ * page's own origin. Derived once from API_BASE_URL so there's still only
+ * one place to change if your backend host changes.
+ */
 const SERVER_ORIGIN = API_BASE_URL.replace(/\/api\/?$/, '');
 
-
+/**
+ * Turn a host-relative path returned by the API (e.g. "/uploads/x.png")
+ * into an absolute URL pointing at the Flask backend. Returns null/absolute
+ * URLs unchanged so it's always safe to call.
+ */
 function resolveImageUrl(path) {
   if (!path) return null;
   if (/^https?:\/\//i.test(path)) return path; // already absolute
@@ -92,7 +142,11 @@ const API = {
     remove: (id) => apiRequest(`/complaints/${id}`, { method: 'DELETE' }),
   },
 
-
+  /* --------------------------------------------------------------------
+     NOT YET IMPLEMENTED ON THE BACKEND — kept here, clearly marked, so
+     the moment the corresponding Flask route exists you only need to
+     fill in the path below and remove the thrown error.
+     -------------------------------------------------------------------- */
   images: {
     // POST /api/complaints/<id>/image — now live on the backend.
     // Sends the file as multipart/form-data under the field name "image"
