@@ -20,7 +20,7 @@ def create_app():
     # Enable CORS so the Flutter mobile app (or any client)
     # can communicate with this backend across origins.
     CORS(app, origins=[
-    "https://sccm-sable.vercel.app"
+    "https://sccm.onrender.com"
 ])
 
     # Initialize the database with this app
