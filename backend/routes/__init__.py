@@ -1,8 +1,8 @@
 from flask import Flask
 from flask_cors import CORS
 
-from routes.auth import auth
-from routes.complaint import complaint
+from routes.auth import auth_bp
+from routes.complaint import complaint_bp
 
 
 
@@ -18,6 +18,6 @@ def create_app():
     # Register routes
     app.register_blueprint(auth, url_prefix="/auth")
     app.register_blueprint(complaint, url_prefix="/complaints")
-    
+
 
     return app

@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Civic Registry — Report. Track. Resolve.</title>
+<meta name="description" content="A civic complaint registry for reporting municipal issues and tracking them through to resolution.">
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<!-- Bootstrap 5 -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+<!-- App styles -->
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+<div id="toastStack"></div>
+
+<!-- ============ NAVBAR ============ -->
+<nav class="navbar navbar-expand-lg civic-nav">
+  <div class="container">
+    <a class="navbar-brand brand-lockup" href="index.html">
+      <span class="civic-seal"><i class="fa-solid fa-leaf"></i></span>
+      <span>
+        <span class="brand-text d-block">Civic Registry</span>
+        <span class="brand-sub d-block">Complaint Management</span>
+      </span>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMain" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navMain">
+      <ul class="navbar-nav mx-auto mt-3 mt-lg-0">
+        <li class="nav-item"><a class="nav-link active" href="index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="index.html#about">About</a></li>
+        <li class="nav-item"><a class="nav-link" href="index.html#features">Features</a></li>
+        <li class="nav-item"><a class="nav-link" href="citizen/tracking.html">Track a Complaint</a></li>
+      </ul>
+      <div class="d-flex align-items-center gap-2 mt-3 mt-lg-0" id="navUserSlot"></div>
+    </div>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header class="hero">
+  <div class="container">
+    <div class="row align-items-center g-5">
+      <div class="col-lg-6">
+        <span class="hero-eyebrow"><i class="fa-solid fa-stamp"></i> Docket-based civic reporting</span>
+        <h1>Every pothole, <span class="accent">every complaint,</span><br>filed and followed through.</h1>
+        <p class="lead-copy">Report municipal issues in under a minute, watch them move through review, assignment, and resolution — and hold your ward accountable with a public paper trail.</p>
+        <div class="d-flex flex-wrap gap-3 hero-cta-group">
+          <a href="auth/register.html" class="btn btn-civic-primary">Report an issue <i class="fa-solid fa-arrow-right ms-1"></i></a>
+          <a href="citizen/tracking.html" class="btn btn-civic-outline">Track existing complaint</a>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="hero-visual">
+          <div class="docket-card" style="max-width:380px;margin-left:auto;">
+            <div class="d-flex justify-content-between align-items-start">
+              <div>
+                <span class="docket-id mono">CCR-2026-000482</span>
+                <div class="docket-title">Streetlight outage — Elm Avenue</div>
+              </div>
+              <span class="status-badge status-in_progress">In Progress</span>
+            </div>
+            <div class="docket-progress">
+              <span class="dot done"></span>
+              <span class="dot done"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <div class="bar"><span></span></div>
+            </div>
+            <div class="d-flex justify-content-between mt-3">
+              <small class="text-muted mono">Filed 3 days ago</small>
+              <small class="text-muted mono">Electricity Dept.</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ============ ABOUT ============ -->
+<section class="section" id="about">
+  <div class="container">
+    <div class="row g-5 align-items-center">
+      <div class="col-lg-5">
+        <span class="section-label">// About the platform</span>
+        <h2 class="section-title">A public ledger for civic issues, not a black box.</h2>
+        <p class="section-sub">Civic Registry gives residents a direct, transparent channel to report problems in shared spaces — roads, water, sanitation, lighting — and gives municipal staff a structured queue instead of scattered phone calls and paperwork.</p>
+      </div>
+      <div class="col-lg-7">
+        <div class="row g-4">
+          <div class="col-sm-6">
+            <div class="civic-card p-4 h-100">
+              <i class="fa-solid fa-file-signature mb-3" style="color:var(--leaf); font-size:1.4rem;"></i>
+              <h6>Filed like a record</h6>
+              <p class="text-muted small mb-0">Every report gets a permanent docket number you can reference anytime.</p>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="civic-card p-4 h-100">
+              <i class="fa-solid fa-route mb-3" style="color:var(--leaf); font-size:1.4rem;"></i>
+              <h6>Traceable end-to-end</h6>
+              <p class="text-muted small mb-0">Follow a complaint from submission to resolution with a visible timeline.</p>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="civic-card p-4 h-100">
+              <i class="fa-solid fa-seedling mb-3" style="color:var(--leaf); font-size:1.4rem;"></i>
+              <h6>Built for shared spaces</h6>
+              <p class="text-muted small mb-0">Designed around civic and environmental upkeep — the commons we all rely on.</p>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="civic-card p-4 h-100">
+              <i class="fa-solid fa-users mb-3" style="color:var(--leaf); font-size:1.4rem;"></i>
+              <h6>Open to every resident</h6>
+              <p class="text-muted small mb-0">No department jargon required — plain forms anyone can fill out.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FEATURES ============ -->
+<section class="section bg-fog" id="features">
+  <div class="container">
+    <div class="text-center mb-5">
+      <span class="section-label">// What you can do</span>
+      <h2 class="section-title">Everything a complaint needs, in one place</h2>
+      <p class="section-sub mx-auto">From filing to resolution, the registry keeps residents and staff working off the same record.</p>
+    </div>
+    <div class="row g-4">
+      <div class="col-md-6 col-lg-3">
+        <div class="civic-card feature-card">
+          <div class="feature-icon"><i class="fa-solid fa-pen-to-square"></i></div>
+          <h3>Quick filing</h3>
+          <p>Submit a complaint with a title, description, category, photo, and location in under a minute.</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-3">
+        <div class="civic-card feature-card">
+          <div class="feature-icon"><i class="fa-solid fa-magnifying-glass-location"></i></div>
+          <h3>Live tracking</h3>
+          <p>Search and filter every complaint you've filed by status, category, or keyword.</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-3">
+        <div class="civic-card feature-card">
+          <div class="feature-icon"><i class="fa-solid fa-timeline"></i></div>
+          <h3>Status timeline</h3>
+          <p>See exactly when a complaint was filed, picked up, and resolved — no guessing.</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-3">
+        <div class="civic-card feature-card">
+          <div class="feature-icon"><i class="fa-solid fa-chart-column"></i></div>
+          <h3>Department oversight</h3>
+          <p>Municipal staff get a dashboard of open dockets, load by department, and resolution trends.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ STATS ============ -->
+<section class="section-tight">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-6 col-lg-3">
+        <div class="stat-block">
+          <span class="stat-number">12,480</span>
+          <span class="stat-label">Complaints filed</span>
+        </div>
+      </div>
+      <div class="col-6 col-lg-3">
+        <div class="stat-block">
+          <span class="stat-number">9,732</span>
+          <span class="stat-label">Resolved to date</span>
+        </div>
+      </div>
+      <div class="col-6 col-lg-3">
+        <div class="stat-block">
+          <span class="stat-number">4.2 days</span>
+          <span class="stat-label">Avg. resolution time</span>
+        </div>
+      </div>
+      <div class="col-6 col-lg-3">
+        <div class="stat-block">
+          <span class="stat-number">18</span>
+          <span class="stat-label">Departments connected</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA ============ -->
+<section class="section-tight">
+  <div class="container">
+    <div class="cta-band">
+      <div class="row align-items-center g-4">
+        <div class="col-lg-8">
+          <h2 class="mb-2">Seen something that needs fixing?</h2>
+          <p class="mb-0" style="color:rgba(255,255,255,0.8);">Create a free account and file your first complaint in under a minute.</p>
+        </div>
+        <div class="col-lg-4 text-lg-end">
+          <a href="auth/register.html" class="btn btn-light btn-lg rounded-pill fw-semibold">Get started</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="civic-footer">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-lg-4">
+        <div class="brand-lockup mb-3">
+          <span class="civic-seal"><i class="fa-solid fa-leaf"></i></span>
+          <span class="brand-text" style="color:#fff;">Civic Registry</span>
+        </div>
+        <p class="small">A transparent channel between residents and municipal departments for reporting and resolving civic issues.</p>
+      </div>
+      <div class="col-6 col-lg-2">
+        <h5>Platform</h5>
+        <ul class="list-unstyled small">
+          <li class="mb-2"><a href="index.html#about">About</a></li>
+          <li class="mb-2"><a href="index.html#features">Features</a></li>
+          <li class="mb-2"><a href="citizen/tracking.html">Track complaint</a></li>
+        </ul>
+      </div>
+      <div class="col-6 col-lg-2">
+        <h5>Account</h5>
+        <ul class="list-unstyled small">
+          <li class="mb-2"><a href="auth/login.html">Log in</a></li>
+          <li class="mb-2"><a href="auth/register.html">Register</a></li>
+          <li class="mb-2"><a href="citizen/complaint.html">Raise complaint</a></li>
+        </ul>
+      </div>
+      <div class="col-lg-4">
+        <h5>Departments</h5>
+        <p class="small mb-0">Roads &middot; Water &middot; Electricity &middot; Sanitation &middot; Parks &middot; Drainage</p>
+      </div>
+    </div>
+    <div class="footer-bottom d-flex flex-wrap justify-content-between gap-2">
+      <span>&copy; 2026 Civic Registry. Built for residents.</span>
+      <span>Docket format: CCR-YYYY-NNNNNN</span>
+    </div>
+  </div>
+</footer>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- App scripts -->
+<script src="js/utils.js"></script>
+<script src="js/api.js"></script>
+<script src="js/auth.js"></script>
+</body>
+</html>

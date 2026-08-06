@@ -1,0 +1,192 @@
+/* ==========================================================================
+   FORMS — login, register, raise-complaint, profile edit
+   ========================================================================== */
+
+.auth-shell {
+  min-height: calc(100vh - var(--nav-height));
+  display: flex;
+  align-items: center;
+  padding: 3rem 0;
+  background:
+    radial-gradient(circle at 90% 10%, rgba(47,133,88,0.10), transparent 50%),
+    var(--paper);
+}
+
+.auth-card {
+  background: #fff;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lift);
+  overflow: hidden;
+  border: 1px solid var(--line);
+}
+
+.auth-side {
+  background: var(--forest);
+  color: #fff;
+  padding: 3rem 2.5rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+}
+.auth-side::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 20% 90%, rgba(255,255,255,0.08), transparent 55%);
+}
+.auth-side .quote {
+  font-size: 1.1rem;
+  line-height: 1.55;
+  position: relative;
+  z-index: 1;
+}
+.auth-side .quote-id {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.65);
+  margin-top: 1rem;
+  display: block;
+}
+
+.auth-form-side { padding: 3rem 2.75rem; }
+
+.form-label {
+  font-weight: 600;
+  font-size: 0.88rem;
+  color: var(--forest-dark);
+  margin-bottom: 0.4rem;
+}
+.form-control, .form-select {
+  border: 1.5px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 0.65rem 0.9rem;
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.form-control:focus, .form-select:focus {
+  border-color: var(--leaf);
+  box-shadow: 0 0 0 3px rgba(47,133,88,0.15);
+}
+.form-control.is-invalid { border-color: var(--status-rejected); }
+.form-control.is-valid { border-color: var(--leaf); }
+
+.invalid-feedback { font-size: 0.8rem; }
+
+.password-field { position: relative; }
+.password-toggle {
+  position: absolute;
+  right: 0.9rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: var(--ink-soft);
+  cursor: pointer;
+}
+.password-toggle:hover { color: var(--forest); }
+
+.password-strength {
+  height: 4px;
+  border-radius: 4px;
+  background: var(--line);
+  margin-top: 0.5rem;
+  overflow: hidden;
+}
+.password-strength span {
+  display: block;
+  height: 100%;
+  width: 0%;
+  transition: width 0.25s ease, background 0.25s ease;
+}
+
+.form-divider {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--ink-soft);
+  font-size: 0.82rem;
+  margin: 1.5rem 0;
+}
+.form-divider::before, .form-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--line);
+}
+
+/* ---- Raise-complaint form -------------------------------------------- */
+.upload-zone {
+  border: 2px dashed var(--line);
+  border-radius: var(--radius-md);
+  padding: 2rem 1.5rem;
+  text-align: center;
+  color: var(--ink-soft);
+  cursor: pointer;
+  transition: border-color 0.18s ease, background 0.18s ease;
+  background: var(--fog);
+}
+.upload-zone:hover, .upload-zone.dragover {
+  border-color: var(--leaf);
+  background: var(--leaf-light);
+}
+.upload-zone i { font-size: 1.8rem; color: var(--moss); margin-bottom: 0.6rem; display: block; }
+.upload-preview {
+  margin-top: 1rem;
+  display: none;
+  position: relative;
+}
+.upload-preview img {
+  width: 100%;
+  max-height: 220px;
+  object-fit: cover;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--line);
+}
+.upload-preview .remove-img {
+  position: absolute;
+  top: 0.5rem; right: 0.5rem;
+  background: rgba(28,35,31,0.65);
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 30px; height: 30px;
+  cursor: pointer;
+}
+
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 0.6rem;
+}
+.category-chip {
+  border: 1.5px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 0.7rem 0.6rem;
+  text-align: center;
+  cursor: pointer;
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+  transition: all 0.15s ease;
+}
+.category-chip i { display: block; font-size: 1.15rem; margin-bottom: 0.35rem; color: var(--moss); }
+.category-chip.active {
+  border-color: var(--leaf);
+  background: var(--leaf-light);
+  color: var(--forest-dark);
+  font-weight: 600;
+}
+.category-chip.active i { color: var(--leaf); }
+
+.location-status {
+  font-size: 0.82rem;
+  color: var(--ink-soft);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 0.5rem;
+}
+.location-status.ok { color: var(--leaf); }
+.location-status.err { color: var(--status-rejected); }

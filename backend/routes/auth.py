@@ -7,7 +7,7 @@ from flask import Blueprint, request, jsonify, current_app
 from models import db
 from models.user import User
 
-auth_bp = Blueprint("auth", __name__)
+auth_bp = Blueprint("auth_bp", __name__)
 
 
 # ----------------------------------------------------------------------
